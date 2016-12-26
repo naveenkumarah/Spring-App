@@ -28,6 +28,9 @@ public class CustomUserDetailsService implements UserDetailsService{
 			throws UsernameNotFoundException {
 		
 		com.naveen.demo.domain.User user = userRepository.findByUsername(username);
+		if(user==null){
+			throw new UsernameNotFoundException("Username/password wrong");
+		}
 		List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRoles());
 		
 		return buildUserForAuthentication(user, authorities);
