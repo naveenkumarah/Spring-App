@@ -1,9 +1,7 @@
 package com.naveen.demo.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -14,15 +12,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 @Configuration
 @EnableWebSecurity
-@EnableOAuth2Sso
 public class MultiHttpSecurityConfig {
-	@Autowired
-	private DataSource dataSource;
-	
 	@Autowired
 	private Md5PasswordEncoder md5PasswordEncoder;
 	
@@ -32,8 +27,12 @@ public class MultiHttpSecurityConfig {
 	}
 	
 	@Autowired
+	@Qualifier("customUserDetailsService")
+	private UserDetailsService customUserDetailsService;
+	
+	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-	  auth.jdbcAuthentication().passwordEncoder(md5PasswordEncoder).dataSource(dataSource);
+		auth.userDetailsService(customUserDetailsService).passwordEncoder(md5PasswordEncoder);
 	}
 
 	@Configuration
