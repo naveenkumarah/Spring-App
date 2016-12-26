@@ -53,7 +53,7 @@ public class MultiHttpSecurityConfig {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http.authorizeRequests()
-			.antMatchers("/js/**").permitAll();
+			.antMatchers("/js/**","/libs/**").permitAll();
 			
 			http
 				.authorizeRequests().antMatchers("/signin").anonymous()
