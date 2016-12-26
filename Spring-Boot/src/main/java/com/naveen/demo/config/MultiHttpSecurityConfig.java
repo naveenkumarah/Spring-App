@@ -52,9 +52,18 @@ public class MultiHttpSecurityConfig {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
+			http.authorizeRequests()
+			.antMatchers("/js/**").permitAll();
+			
 			http
-				.authorizeRequests().anyRequest().authenticated()
-				.and().formLogin()
+				.authorizeRequests().antMatchers("/signin").anonymous()
+				.anyRequest().authenticated()
+				.and().formLogin().loginPage("/signin")
+				.loginProcessingUrl("/sign-in-process.html")
+				.failureUrl("/signin?error")
+				.usernameParameter("username")
+				.passwordParameter("password")
+				.and().logout().logoutSuccessUrl("/signin?logout")
 				.and().csrf().disable();
 		}
 		@Override

@@ -5,6 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -24,26 +25,22 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		InternalResourceViewResolver viewResolver 
                           = new InternalResourceViewResolver();
 		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/view/");
-		viewResolver.setSuffix(".jsp");
+		viewResolver.setPrefix("/views/");
+		viewResolver.setSuffix(".html");
 		return viewResolver;
 	}
 	
-	/*@Override
+	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-		registry.addResourceHandler("/css/**").addResourceLocations("/css/");
 		registry.addResourceHandler("/js/**").addResourceLocations("/js/");
-		registry.addResourceHandler("/images/**").addResourceLocations("/images/");
-		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-	}*/
+	}
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("forward:/home.do");
-		/*registry.addViewController("/signin").setViewName("signin");
+		registry.addViewController("/").setViewName("forward:/home");
+		registry.addViewController("/signin").setViewName("signin");
 		registry.addViewController("/error/404.html").setViewName("404");
-		registry.addViewController("/error/505.html").setViewName("505");*/
+		registry.addViewController("/error/505.html").setViewName("505");
 	}
 	
 	/*
