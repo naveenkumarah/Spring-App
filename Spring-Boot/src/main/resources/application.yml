@@ -1,23 +1,6 @@
-facebook:
-  client:
-    clientId: 233668646673605
-    clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d
-    accessTokenUri: https://graph.facebook.com/oauth/access_token
-    userAuthorizationUri: https://www.facebook.com/dialog/oauth
-    tokenName: oauth_token
-    authenticationScheme: query
-    clientAuthenticationScheme: form
-  resource:
-    userInfoUri: https://graph.facebook.com/me
-
-logging:
-  level:
-    root: 
-    org.springframework.security: DEBUG
-    
 spring:
     application:
-        name: cruncher
+        name: Demo
     datasource:
         driverClassName: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/spring
@@ -36,3 +19,31 @@ server:
     display-name: Demo
     
 debug: false
+
+
+facebook:
+  client:
+    clientId: 248640002231862
+    clientSecret: e32a085cdf2acabf1c3fd62e855c6ecf
+    accessTokenUri: https://graph.facebook.com/oauth/access_token
+    userAuthorizationUri: https://www.facebook.com/dialog/oauth
+    tokenName: oauth_token
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://graph.facebook.com/me
+
+github:
+  client:
+    clientId: 7fca6a081242c55c7ad4
+    clientSecret: f2d7cc21ea7aaee48d9d1496457f5d080c17284d
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://api.github.com/user
+
+logging:
+  level:
+    root: 
+    org.springframework.security: INFO
