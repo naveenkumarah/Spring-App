@@ -1,9 +1,10 @@
 package com.naveen.demo.domain;
 
+import java.io.Serializable;
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,69 +12,44 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tbl_user_role")
-public class UserRole {
+public class UserRole implements Serializable{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private Integer userRoleId;
-	
-	@Column(name = "role_name", nullable = false, unique = true, length = 128)
-	private String userRoleName;
-	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+	
+	@Id
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	private Role role;
+	
+	@Column(name = "active_date")
+	private Date activeDate;
 
-	/**
-	 * @return the userRoleId
-	 */
-	public Integer getUserRoleId() {
-		return userRoleId;
-	}
-
-	/**
-	 * @param userRoleId the userRoleId to set
-	 */
-	public void setUserRoleId(Integer userRoleId) {
-		this.userRoleId = userRoleId;
-	}
-
-	/**
-	 * @return the userRoleName
-	 */
-	public String getUserRoleName() {
-		return userRoleName;
-	}
-
-	/**
-	 * @param userRoleName the userRoleName to set
-	 */
-	public void setUserRoleName(String userRoleName) {
-		this.userRoleName = userRoleName;
-	}
-
-	/**
-	 * @return the user
-	 */
 	public User getUser() {
 		return user;
 	}
 
-	/**
-	 * @param user the user to set
-	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "UserRole [userRoleId=" + userRoleId + ", userRoleName="
-				+ userRoleName + "]";
+	public Role getRole() {
+		return role;
 	}
 
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public Date getActiveDate() {
+		return activeDate;
+	}
+
+	public void setActiveDate(Date activeDate) {
+		this.activeDate = activeDate;
+	}
+	
+	
 }

@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.naveen.demo.domain.UserRole;
+import com.naveen.demo.domain.Role;
 
 @Repository
-@Qualifier(value = "userRoleRepository")
-public interface UserRoleRepository extends CrudRepository<UserRole, Integer> {
+@Qualifier(value = "roleRepository")
+public interface RoleRepository extends CrudRepository<Role, Integer> {
 
 }

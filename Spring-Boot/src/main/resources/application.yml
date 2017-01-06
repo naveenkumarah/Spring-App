@@ -11,6 +11,7 @@ spring:
       hibernate:
         naming:
           strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        ddl-auto: update
       show-sql: true
       
 server:
