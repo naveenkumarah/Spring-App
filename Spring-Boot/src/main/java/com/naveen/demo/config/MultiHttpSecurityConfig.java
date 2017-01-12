@@ -54,7 +54,7 @@ public class MultiHttpSecurityConfig {
 	 */
 	
 	@Configuration   
-	@Order(3)                                                   
+	@Order(3)                                                 
 	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
 		@Override

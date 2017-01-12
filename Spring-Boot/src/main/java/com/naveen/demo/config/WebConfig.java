@@ -38,7 +38,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("forward:/home");
+		registry.addViewController("/").setViewName("forward:/saml/login");
 		registry.addViewController("/signin").setViewName("signin");
 		registry.addViewController("/error/404.html").setViewName("404");
 		registry.addViewController("/error/505.html").setViewName("505");

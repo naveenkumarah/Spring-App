@@ -20,9 +20,12 @@ flyway:
   baseline-on-migrate: true
    
 server:
-    port: 8080
     context-path: /demo
     display-name: Demo
+ #   ssl:
+  #    key-store: classpath:clientkeystore
+  #    key-store-password: naveen
+   #   key-password: password
     
 debug: false
 
