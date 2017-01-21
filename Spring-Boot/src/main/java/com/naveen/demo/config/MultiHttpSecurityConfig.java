@@ -53,7 +53,7 @@ public class MultiHttpSecurityConfig {
 	 * 
 	 */
 	
-	@Configuration   
+	/*@Configuration   
 	@Order(3)                                                 
 	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
@@ -73,5 +73,5 @@ public class MultiHttpSecurityConfig {
 				.and().logout().logoutSuccessUrl("/signin?logout")
 				.and().csrf().disable();
 		}
-	}
+	}*/
 }
