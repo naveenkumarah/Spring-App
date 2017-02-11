@@ -30,15 +30,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return viewResolver;
 	}
 	
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/js/**").addResourceLocations("/js/");
-		registry.addResourceHandler("/libs/**").addResourceLocations("/libs/");
-	}
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("forward:/saml/login");
+		registry.addViewController("/").setViewName("forward:/home");///saml/login");
 		registry.addViewController("/signin").setViewName("signin");
 		registry.addViewController("/error/404.html").setViewName("404");
 		registry.addViewController("/error/505.html").setViewName("505");

@@ -14,7 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 @Configuration
-public class MultiHttpSecurityConfig {
+@Order(6)
+public class FormWebSecurityConfig extends WebSecurityConfigurerAdapter{
+	
 	@Autowired
 	private Md5PasswordEncoder md5PasswordEncoder;
 	
@@ -31,47 +33,24 @@ public class MultiHttpSecurityConfig {
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(customUserDetailsService).passwordEncoder(md5PasswordEncoder);
 	}
-
-	/*
-	 * Web service security using http basic authentication.
-	 * 
-	 */
 	
-	@Configuration
-	@Order(1)                                                        
-	public static class ServiceWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
-		protected void configure(HttpSecurity http) throws Exception {
-			http
-				.antMatcher("/services/**")                               
-				.authorizeRequests().anyRequest().authenticated()
-				.and().httpBasic()
-				.and().csrf().disable();
-		}
-	}
-	/*
-	 * Form based web jdbc(Jpa) authentication 
-	 * 
-	 */
-	
-	/*@Configuration   
-	@Order(3)                                                 
-	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
-
-		@Override
-		protected void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests()
-			.antMatchers("/js/**","/libs/**","/login**").permitAll();
-			
-			http
-				.authorizeRequests().antMatchers("/signin").anonymous()
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		
+		http
+			.authorizeRequests()
+				.antMatchers("/js/**","/libs/**","/login**","/signin**").permitAll()
 				.anyRequest().authenticated()
-				.and().formLogin().loginPage("/signin")
-				.loginProcessingUrl("/sign-in-process.html")
-				.failureUrl("/signin?error")
-				.usernameParameter("username")
-				.passwordParameter("password")
-				.and().logout().logoutSuccessUrl("/signin?logout")
-				.and().csrf().disable();
-		}
-	}*/
+			.and().formLogin().
+					loginPage("/signin")
+					.loginProcessingUrl("/sign-in-process.html")
+					.failureUrl("/signin?error")
+					.usernameParameter("username")
+					.passwordParameter("password")
+			.and().logout().
+					logoutSuccessUrl("/signin?logout")
+			.and().
+				csrf().disable();
+	}
+	
 }

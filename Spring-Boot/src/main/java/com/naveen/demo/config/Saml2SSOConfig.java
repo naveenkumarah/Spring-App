@@ -1,3 +1,4 @@
+package com.naveen.demo.config;
 /*
  * Copyright 2016 Vincenzo De Notaris
  *
@@ -14,7 +15,7 @@
  * limitations under the License. 
  */
 
-package com.naveen.demo.config;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,9 +29,10 @@ import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.velocity.app.VelocityEngine;
-import org.opensaml.saml2.metadata.provider.HTTPMetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
+import org.opensaml.saml2.metadata.provider.ResourceBackedMetadataProvider;
+import org.opensaml.util.resource.ClasspathResource;
 import org.opensaml.util.resource.ResourceException;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.parse.StaticBasicParserPool;
@@ -103,12 +105,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.naveen.demo.saml.SAMLUserDetailsServiceImpl;
  
-@Configuration
+/*@Configuration
 @EnableWebSecurity
 @Order(3)
-@EnableGlobalMethodSecurity(securedEnabled = true)
-
-@ComponentScan(basePackages={"com.naveen.demo.saml"})
+@EnableGlobalMethodSecurity(securedEnabled = true)*/
 public class Saml2SSOConfig extends WebSecurityConfigurerAdapter {
  
 	
@@ -133,12 +133,17 @@ public class Saml2SSOConfig extends WebSecurityConfigurerAdapter {
         http
             .addFilterBefore(metadataGeneratorFilter(), ChannelProcessingFilter.class)
             .addFilterAfter(samlFilter(), BasicAuthenticationFilter.class);
-        http        
+        
+        http.antMatcher("/login/**") 
+		.authorizeRequests().anyRequest().authenticated();
+        
+       /* http        
             .authorizeRequests()
             .antMatchers("/").permitAll()
             .antMatchers("/error").permitAll()
             .antMatchers("/saml/**").permitAll()
-            .anyRequest().authenticated();
+            .anyRequest().authenticated();*/
+        
         http
             .logout()
                 .logoutSuccessUrl("/");
@@ -317,21 +322,21 @@ public class Saml2SSOConfig extends WebSecurityConfigurerAdapter {
 	public ExtendedMetadataDelegate ssoCircleExtendedMetadataProvider()
 			throws MetadataProviderException, ResourceException {
 		
-		/*
+		
 		
 		  Timer backgroundTaskTimer = new Timer(true);
 		 ResourceBackedMetadataProvider resourceMetadataProvider=new ResourceBackedMetadataProvider(backgroundTaskTimer,
 				new ClasspathResource("/metadata/idp-meta.xml"));
 		resourceMetadataProvider.setParserPool(parserPool());
-		*/
+		/*
 		String idpSSOCircleMetadataURL = "https://idp.ssocircle.com/idp-meta.xml";
 		Timer backgroundTaskTimer = new Timer(true);
 		HTTPMetadataProvider httpMetadataProvider = new HTTPMetadataProvider(
 				backgroundTaskTimer, httpClient(), idpSSOCircleMetadataURL);
 		httpMetadataProvider.setParserPool(parserPool());
-		
+		*/
 		ExtendedMetadataDelegate extendedMetadataDelegate = 
-				new ExtendedMetadataDelegate(httpMetadataProvider, extendedMetadata());
+				new ExtendedMetadataDelegate(resourceMetadataProvider, extendedMetadata());
 		//extendedMetadataDelegate.setMetadataTrustCheck(true);
 		extendedMetadataDelegate.setMetadataRequireSignature(false);
 		

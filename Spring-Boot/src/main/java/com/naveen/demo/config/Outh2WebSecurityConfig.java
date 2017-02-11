@@ -1,5 +1,6 @@
 package com.naveen.demo.config;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,7 @@ import org.springframework.web.filter.CompositeFilter;
 @Order(2)
 public class Outh2WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	
 	@Bean 
 	public RequestContextListener requestContextListener(){
 	    return new RequestContextListener();
@@ -42,6 +44,9 @@ public class Outh2WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	OAuth2ClientContext oauth2ClientContext;
 	//@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
+		http.authorizeRequests()
+		.antMatchers("/js/**","/libs/**","/login**").permitAll();
 		// @formatter:off
 		http.antMatcher("/login/**") 
 				.authorizeRequests().anyRequest().authenticated().and().exceptionHandling()

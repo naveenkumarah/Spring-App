@@ -55,4 +55,4 @@ github:
 logging:
   level:
     root: 
-    org.springframework.security: INFO
+    org.springframework.security: DEBUG

@@ -1,9 +1,9 @@
-package com.naveen.demo.boot;
+package com.naveen.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages={"com.naveen.demo.config"})
+@SpringBootApplication()
 public class SpringAppApplication {
 
 	public static void main(String[] args) {
