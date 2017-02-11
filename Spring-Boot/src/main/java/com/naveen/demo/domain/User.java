@@ -37,6 +37,19 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
 	private Set<UserRole> userRoles;
 
+	public User(){
+		
+	}
+	
+	public User(User user) {
+		super();
+		this.userId = user.userId;
+		this.username = user.username;
+		this.password = user.password;
+		this.firstName = user.firstName;
+		this.lastName = user.lastName;
+	}
+
 	/**
 	 * @return the userId
 	 */
@@ -129,7 +142,7 @@ public class User {
 	public String toString() {
 		return "User [userId=" + userId + ", username=" + username
 				+ ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", userRoles=" + userRoles + "]";
+				+ ", lastName=" + lastName+"]";
 	}
 	
 }
