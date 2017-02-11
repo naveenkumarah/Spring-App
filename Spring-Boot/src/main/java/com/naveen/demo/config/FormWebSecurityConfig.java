@@ -29,6 +29,7 @@ public class FormWebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 			.authorizeRequests()
 				.antMatchers("/js/**","/libs/**","/login**","/signin**").permitAll()
+				.antMatchers("/users/{userId}").access("@authz.check(#userId,principal)")
 				.anyRequest().authenticated()
 			.and().formLogin().
 					loginPage("/signin")
@@ -39,7 +40,12 @@ public class FormWebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.and().logout().
 					logoutSuccessUrl("/signin?logout")
 			.and().
-				csrf().disable();
+				csrf().disable()
+				.headers()
+				.contentSecurityPolicy("default-src 'self' " +
+						//"https://ajax.googleapis.com " +
+						//"https://cdnjs.cloudflare.com; " +
+						"style-src 'self' 'unsafe-inline'");
 	}
 	
 }
